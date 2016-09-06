@@ -1,0 +1,99 @@
+	@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+	@import url(http://fonts.googleapis.com/css?family=Lustria|Lato:300,700);
+
+	body { background: #fefefe; font-family: 'Lato', sans-serif; font-size: 14px; }
+	*, *:before, *:after {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.wrapper { margin: 0 auto; max-width: 900px; }
+
+	input[type="text"],
+	input[type="email"],
+	input[type="number"],
+	input[type="password"],
+	textarea { -webkit-appearance: none; background-color: #fff; font-family: inherit; border: 1px solid #cccccc; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); color: #222; display: block; font-size: 1rem; margin: 0 0 0.88889rem 0; padding: 0.44444rem; height: 2.05556rem; width: 100%; border-radius: 4px;  }
+	input[type="text"]:focus,
+	input[type="email"]:focus,
+	input[type="number"]:focus,
+	input[type="password"]:focus,
+	textarea:focus { box-shadow: 0 0 5px #999999; border-color: #999999;  background: #fafafa; border-color: #999999; outline: none; }
+	[disabled] { opacity: 0.3; cursor: not-allowed; }
+	hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 1.11111rem 0 1.05556rem;  height: 0; }
+
+	h1, h2, button { font-family: 'Lustria', serif; text-align: center; }
+	h1 { margin-bottom: 2em; }
+	h2 { text-align: left; border-bottom: 2px solid #ccc; margin-bottom: 0; }
+
+
+	button { display: inline-block; padding: 5px 13px; position: relative; border-radius: 4px; border:1px solid #7ebf2e; box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 0 1px 0 rgba(0, 0, 0, 0.5); vertical-align: middle; cursor: pointer; outline: none; color: #fff; font-size: 15px; position: relative; -webkit-appearance: none; text-align: center; -webkit-appearance: none; appearance: none; background: #008CBA;  border: solid 1px #007295; }
+	button:hover { background: #007295; }
+	button.up,
+	button.down { font-weight: bold; font-size: larger; }
+	button.up { border-color: #368a54; background: #43AC6A; }
+	button.up:hover { background: #368a54 }
+	button.down { border-color: #cf280e;  background: #f04124; }
+	button.down:hover { background: #cf280e; }
+	button.up i,
+	button.down i { padding-left: 0; }
+	button i { padding-left: 10px; }
+
+	fieldset { border: 2px solid #ddd; border-radius: 4px; clear: both; text-align: center; margin: 4em 0 2em; }
+	fieldset h2 { border: none; text-align: center; }
+	legend { text-align: left; font-size: large; }
+	legend i { margin: 0 5px; }
+	fieldset .form { margin-bottom: 2em; }
+	fieldset .form div { display:inline-block; zoom:1; *display:inline; vertical-align: middle; border-left: 1px solid #ddd; padding: 0 1em; text-align: left; }
+	fieldset .form div:first-of-type { border-left: none; }
+	fieldset input[type="number"] { width: auto; }
+	button,
+	input { -webkit-transition: all .2s ease-in; -moz-transition: all .2s ease-in; -ms-transition: all .2s ease-in; -o-transition: all .2s ease-in; transition: all .2s ease-in; }
+
+	.voters ul { text-align: left; list-style: none; max-width: 500px; margin: 0 auto 3em; padding: 0; border-top: 1px solid #ccc }
+	.voters li { margin-bottom: 0.5em; padding: 0.5em 0; border-bottom: 1px solid #ccc; clear: both; }
+	.voters li:after { content: ""; display: table; clear: both;  }
+	.voters .votescast { float: right; }
+	.remove { height: 16px; width: 16px; text-align: center; padding: 0; line-height: 1; background: #f04124; border: none; }
+
+	.nominees,
+	.nominees li { width: 100%; margin: 0; padding: 1em 0; clear: both; display: block; list-style: none; position: relative; }
+
+	.nominees.results li:first-child { border: 2px solid #368a54; }
+	.nominees.results li:first-child .title { font-size: large; }
+
+	.nominees li { padding: 1em; border-radius: 1em; background: #efefef; margin: 1em 0; }
+	.nominees div,
+	.nominees strong,
+	.nominees .uservotes p  { display:inline-block; zoom:1; *display:inline; vertical-align: top; }
+	.nominees .title { padding-right: 145px; font-weight: 700; }
+	.nominees .info { position: absolute; right: 5px; top: 50%; margin-top: -18px; }
+	.nominees .actions { margin: 0 1em; }
+	.nominees .votes { line-height: 40px; font-size: larger; padding-right: 5px; }
+	.nominees .uservotes { display: block; padding: 5px 145px 0 0;  }
+	.nominees .uservotes p { font-size: 16px; background: #ccc; color: #fff; margin: 0 5px 0 0; border-radius: 100%; height: 24px; width: 24px; line-height: 24px; text-align: center;  }
+	.nominees .uservotes p.down { background: #368a54; }
+	.nominees .uservotes p.up { background: #cf280e ; }
+
+
+ 	#login-buttons { padding: 1em 0; }
+ 	.votesremaing { font-size: small; text-align: center; border-bottom: 0; }
+ 	.votesremaing strong { font-size: larger; }
+
+ 	#form { position: relative; }
+ 	#form button { position: absolute; top:-4px; right: -2px; padding: 7px 13px; }
+
+ 	.users { text-align: left; }
+ 	.users li { list-style: none; }
+ 	.users li { display:inline-block; zoom:1; *display:inline; margin-right: 10px; }
+ 	.users li:not(:last-child):after { content: ","; }
+
+ 	.hide { display: none !important; }
+ 	.center  { text-align: center; }
+
+@media only screen and (max-width: 420px) {
+
+	fieldset  .form  div { border-left: none; }
+
+	#login-buttons,
+ 	.votesremaing { float: none; display: block; text-align: center; }
+
+}
+
+

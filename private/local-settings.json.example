@@ -1,0 +1,25 @@
+{
+	"facebookSettings" :
+		{
+			"service"    : "facebook",
+			"appId"      : "###",
+			"secret"     : "###",
+			"loginStyle" : "redirect"
+		},
+
+	"twitterSettings" :
+		{
+			"service"     : "twitter",
+			"consumerKey" : "###",
+			"secret"      : "###",
+			"loginStyle"  : "redirect"
+		},
+
+	"googleSettings" :
+		{
+			"service"     : "google",
+			"clientId"    : "###",
+			"secret"      : "###",
+			"loginStyle"  : "redirect"
+		}
+}
