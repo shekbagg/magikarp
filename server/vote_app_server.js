@@ -1,22 +1,10 @@
 
  //
- // Set up Facebook, Twitter & Google Login on Startup
+ // Set up Google Login on Startup
 	Meteor.startup(function () {
-
-		Accounts.loginServiceConfiguration.remove({
-			service : 'facebook'
-		});
-
-		Accounts.loginServiceConfiguration.remove({
-			service : 'twitter'
-		});
-
 		Accounts.loginServiceConfiguration.remove({
 			service : 'google'
 		});
-
-		Accounts.loginServiceConfiguration.insert(Meteor.settings.facebookSettings);
-		Accounts.loginServiceConfiguration.insert(Meteor.settings.twitterSettings);
 		Accounts.loginServiceConfiguration.insert(Meteor.settings.googleSettings);
 	});
 
@@ -24,7 +12,7 @@
 	// Server Methods
 	Meteor.methods({
 		onLogin: function() {
-			var admins =  JSON.parse(Assets.getText('admins.json')),
+			var admins =  Assets.getText('admins.json') && JSON.parse(Assets.getText('admins.json')) || [],
 				user = Meteor.user();
 
 			if(!user){
