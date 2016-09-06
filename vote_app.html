@@ -1,5 +1,5 @@
 	<head>
-		<title>Vote App</title>
+		<title>Geckothon Ideas</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 		<meta name="mobile-web-app-capable" content="yes">
@@ -14,141 +14,108 @@
 
 	</head>
 	<body>
-		<div class="wrapper">
-			{{> vote}}
-		</div>
+		{{> vote}}
 	</body>
 
 	<template name="vote">
-		<small>Vote On...</small>
-		{{ #if isAdmin }}
-			<h1 id="title" contenteditable>{{ title }}</h1>
-		{{ else }}
-			<h1 id="title">{{ title }}</h1>
-		{{ /if }}
-
-
-		<div id="ballot">
-		<h2>Nominees</h2>
-		<ul class="nominees">
-		{{ #each nominees }}
-			<li class="nominee">
-				<strong class="title">{{ this.name }}</strong>
-				<div class="info">
-
-				{{#if session "meteor_loggedin"}}
-					<div class="actions">
-						{{ #if canVoteDown }}
-							<button class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
-						{{ else }}
-							<button disabled class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
-						{{ /if }}
-
-						{{ #if canVoteUp }}
-							<button class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
-						{{ else }}
-							<button disabled class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
-						{{ /if }}
-					</div>
-				{{ /if }}
-				</div>
-				{{#if session "meteor_loggedin"}}
-				<div class="uservotes">
-					{{ userVotesForNominee }}
-				</div>
-				{{ /if }}
-			</li>
-		{{ /each }}
-		</ul>
-
-		{{#if session "meteor_loggedin"}}
-			<form id="form">
-				{{ #if canVote }}
-			<input placeholder="Nominate an option..." type="text" name="nomination" />
-			<button type="submit">Nominate <i class="fa fa-check-square-o"></i></button>
-				{{ else }}
-					<input disabled placeholder="Nominate an option..." type="text" name="nomination" />
-					<button disabled type="submit">Nominate <i class="fa fa-check-square-o"></i></button>
-				{{ /if }}
-			</form>
-
-
-			<h2 class="votesremaing">Votes remaining: <strong>{{ userVotes }}</strong></h2>
-		{{ /if }}
-
+		<div class="navbar navbar-default" role="navigation">
+		    <div class="navbar-header">
+		        <a class="navbar-brand" href="#">Geckothon</a>
+		        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		        </button>
+		    </div>
+		    <div class="navbar-collapse collapse">
+		        <ul class="nav navbar-nav">
+		            <li class="active"><a href="#">Popular</a></li>
+		        </ul>
+		        <ul class="nav navbar-nav navbar-right">
+		            {{> loginButtons}}
+		        </ul>
+		    </div>
 		</div>
+		<div class="container">
 
-		{{#if session "meteor_loggedin"}}
+			<h1>Welcome Hackers!</h1>
 
-			{{#unless userVotes }}
-
-				<p class="center"><button id="viewresults">View Results</button></p>
-
-				<div id="results" class="hide">
-					<h2>Results</h2>
-					<ul class="nominees results">
-					{{ #each results }}
-						<li class="nominee">
-							<strong class="title">{{ this.name }}</strong>
-							<div class="info">
-								<strong class="votes">{{ this.votes }}</strong>
-							</div>
-						</li>
-					{{ /each }}
-					</ul>
-
-					<p class="center"><button id="changevotes" type="button">Change Votes</button></p>
+			{{#if session "meteor_loggedin"}}
+				<div class="add-form">
+				<form id="form" class="form-inline">
+					{{ #if canVote }}
+						<input placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
+						<button class="btn btn-lg btn-default" type="submit">Submit</button>
+					{{ else }}
+						<input disabled placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
+						<button class="btn btn-lg btn-default" disabled type="submit">Submit</button>
+					{{ /if }}
+				</form>
 				</div>
-			{{ /unless }}
 
-		{{ /if }}
+				<h2 class="votesremaing">Votes remaining: <strong>{{ userVotes }}</strong></h2>
+			{{ /if }}
 
-		{{ #if isAdmin }}
-			<fieldset>
-				<legend><i class="fa fa-key"></i> Admin</legend>
 
-				<div class="voters">
-					<h2>Users who have voted:</h2>
-					<ul>
-						{{ #each voters }}
-							{{ #if votesCast this.votes }}
-								<li>
-									{{ #if this.services.facebook }}
+			<div id="ballot">
+			<h2>Idea board</h2>
+			<ul class="nominees">
+			{{ #each nominees }}
+				<li class="nominee">
+					<strong class="title">{{ this.name }}</strong>
+					<div class="info">
 
-										<button class="remove discardBallot">&times;</button> <strong>{{ this.profile.name }}</strong> (<a href="{{ this.profileLink }}" target="_blank">Facebook</a>) <small class="votescast">Votes Cast: <strong>{{votesCast this.votes }}</strong></small>
-
-									{{else}} {{#if this.services.twitter }}
-
-										<button class="remove discardBallot">&times;</button> <strong>{{ this.profile.name }}</strong> (<a href="{{ this.profileLink }}" target="_blank">Twitter</a>) <small class="votescast">Votes Cast: <strong>{{votesCast this.votes }}</strong></small>
-									{{else}} {{#if this.services.google }}
-
-										<button class="remove discardBallot">&times;</button> <strong>{{ this.profile.name }}</strong> (<a href="mailto:{{ this.profileLink }}">Google</a>) <small class="votescast">Votes Cast: <strong>{{votesCast this.votes }}</strong></small>
-
-									{{/if}}{{/if}}{{/if}}
-								</li>
+					{{#if session "meteor_loggedin"}}
+						<div class="actions">
+							{{ #if canVoteDown }}
+								<button class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
+							{{ else }}
+								<button disabled class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
 							{{ /if }}
+
+							{{ #if canVoteUp }}
+								<button class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
+							{{ else }}
+								<button disabled class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
+							{{ /if }}
+						</div>
+					{{ /if }}
+					</div>
+					{{#if session "meteor_loggedin"}}
+					<div class="uservotes">
+						{{ userVotesForNominee }}
+					</div>
+					{{ /if }}
+				</li>
+			{{ /each }}
+			</ul>
+
+			</div>
+
+			{{#if session "meteor_loggedin"}}
+
+				{{#unless userVotes }}
+
+					<p class="center"><button id="viewresults">View Results</button></p>
+
+					<div id="results" class="hide">
+						<h2>Results</h2>
+						<ul class="nominees results">
+						{{ #each results }}
+							<li class="nominee">
+								<strong class="title">{{ this.name }}</strong>
+								<div class="info">
+									<strong class="votes">{{ this.votes }}</strong>
+								</div>
+							</li>
 						{{ /each }}
-					</ul>
-				</div>
+						</ul>
 
-				<div class="form">
-					<div>
-						<label for="numbervotes">Votes Per User</label>
-						<input  id="numbervotes" type="number" min="0" value="{{ votesPerUser }}">
+						<p class="center"><button id="changevotes" type="button">Change Votes</button></p>
 					</div>
-					<div>
-						<label for="allowdownvotes">Allow Down Votes</label>
-						<input id="allowdownvotes" type="checkbox" value="1" checked="{{ allowDownVotes }}">
-					</div>
-				</div>
-				<div>
-					<button id="reset" type="button">Reset Ballot <i class="fa fa-undo"></i></button>
-				</div>
+				{{ /unless }}
 
-			</fieldset>
-
-		{{ /if }}
-
-		{{> loginButtons}}
-
+			{{ /if }}
+		</div>
 	</template>
