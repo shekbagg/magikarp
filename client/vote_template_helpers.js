@@ -77,6 +77,10 @@ Template.vote.helpers({
 		}
 	},
 
+	canDelete: function(){
+		return [Meteor.user().services.google.email].includes(this.nominator.services.google.email);
+	},
+
 	canVoteUp : function(){
 		if(Session.get("meteor_loggedin")){
 			var user = Meteor.user(),

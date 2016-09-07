@@ -36,6 +36,7 @@ Template.vote.events({
 		if (this.nominator._id === Meteor.user()._id) {
 			$input.prev('p').addClass('hide');
 			$input.removeClass('hide');
+			$input.val(this.description);
 		}
 	},
 
