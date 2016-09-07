@@ -77,6 +77,10 @@ Template.vote.helpers({
 		}
 	},
 
+	canDelete: function(){
+		return [Meteor.user().services.google.email].includes(this.nominator.services.google.email);
+	},
+
 	canVoteUp : function(){
 		if(Session.get("meteor_loggedin")){
 			var user = Meteor.user(),
@@ -117,31 +121,40 @@ Template.vote.helpers({
 		}
 	},
 
+	totalVotesForNominee: function() {
+		var str = '',
+		total = 0,
+		user = Meteor.user();
+
+		if(user){
+			var nomineeVotesList = NomineeVotes.find({ nominee: this._id });
+			nomineeVotesList.forEach(function(nomineeVotes) {
+				return total += nomineeVotes.votes;
+			});
+		} else {
+			return null;
+		}
+		return total;
+	},
+
 
 	userVotesForNominee : function(){
 		var str = '',
 		user = Meteor.user();
 
 		if(user){
-			var nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id});
+			var nomineeVotesList = NomineeVotes.find({ nominee: this._id });
 		} else {
 			return null;
 		}
 
-		if(!nomineeVotes){
-			return null;
-		}
-
-		var votesTotal = nomineeVotes.votes;
-
-
-		for (var i = 0; i < Math.abs(votesTotal); ++i) {
-			if(votesTotal < 0){
-				str += '<p class="up"><i class="fa fa-thumbs-o-down"></i></p>';
-			} else {
-				str += '<p class="down"><i class="fa fa-thumbs-o-up"></i></p>';
+		nomineeVotesList.forEach(function(nomineeVotes) {
+			const votesTotal = nomineeVotes.votes;
+			const user = Meteor.users.findOne({ _id: nomineeVotes.user });
+			if (votesTotal !== 0) {
+				str += '<img src="' + user.services.google.picture + '" title="' + user.profile.name + ': ' + votesTotal + ' votes" style="border-radius: 50%; width: 5%">';
 			}
-		}
+		});
 
 		return new Handlebars.SafeString(str);
 	},

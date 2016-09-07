@@ -11,6 +11,16 @@ Deps.autorun(function() {
 	if(Meteor.userId()){
 		Meteor.call('onLogin');
 		console.log('Hello!');
+
+
+		if (Meteor.user()) {
+			if(/@tradegecko.com\s*$/.test(Meteor.user().services.google.email)) {
+					console.log('Welcome gecko!');
+			} else {
+				console.log('GTFO');
+				Meteor.logout();
+			}
+		}
 	} else {
 		console.log('Bye!');
 
@@ -20,5 +30,3 @@ Deps.autorun(function() {
 	}
 
 });
-
-

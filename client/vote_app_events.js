@@ -7,9 +7,9 @@ Template.vote.events({
 		val = $input.val();
 
 	if(val){
-			var nomineeId = Nominees.insert({name : $input.val(), votes : 1}),
-				nominee = {_id : nomineeId},
-				user = Meteor.user();
+			const user = Meteor.user();
+			var nomineeId = Nominees.insert({name : $input.val(), votes : 1, nominator: user}),
+				nominee = {_id : nomineeId};
 
 			VoteApp.increaseNomineeVotes(nominee, user);
 			$input.val('');
@@ -28,6 +28,46 @@ Template.vote.events({
 			$('#results, #changevotes').addClass('hide');
 			$('#ballot, #viewresults').removeClass('hide');
 
+		}
+	},
+
+	'click .idea-description': function(e) {
+		const $input = $(e.currentTarget).find('.description');
+		if (this.nominator._id === Meteor.user()._id) {
+			$input.prev('p').addClass('hide');
+			$input.removeClass('hide');
+			$input.val(this.description);
+		}
+	},
+
+	'keyup .description': function(e) {
+		const $input = $(e.currentTarget);
+		if (e.keyCode === 13) {
+			if ($input.val()) {
+				VoteApp.addDescription(this, $input.val());
+			}
+			$input.addClass('hide');
+			$input.prev('p').removeClass('hide');
+		}
+	},
+
+	'click .idea-name': function(e) {
+		const $input = $(e.currentTarget).find('.name');
+		if (this.nominator._id === Meteor.user()._id) {
+			$input.prev('p').addClass('hide');
+			$input.removeClass('hide');
+			$input.val(this.name);
+		}
+	},
+
+	'keyup .name': function(e) {
+		const $input = $(e.currentTarget);
+		if (e.keyCode === 13) {
+			if ($input.val()) {
+				VoteApp.addName(this, $input.val());
+			}
+			$input.addClass('hide');
+			$input.prev('p').removeClass('hide');
 		}
 	},
 
@@ -51,6 +91,15 @@ Template.vote.events({
 			}
 
 		}
+		return false;
+	},
+
+	'click .delete': function(e) {
+		var user = Meteor.user();
+		if (user) {
+			VoteApp.removeNominee(this, user);
+		}
+		return false;
 	},
 
 	'blur #title' : function(){
@@ -118,7 +167,6 @@ Template.vote.events({
 
 Template.vote.helpers({
 
-
 	isAdmin : function(){
 		if(Meteor.user()){
 			return Meteor.user().isAdmin;
@@ -163,7 +211,7 @@ Template.vote.helpers({
 
 	},
 
-	userVotes : function(){
+	userVotes: function(){
 		if(Meteor.user()){
 			return Meteor.user().votes;
 		}
@@ -211,35 +259,6 @@ Template.vote.helpers({
 		}
 	},
 
-
-	userVotesForNominee : function(){
-		var str = '',
-		user = Meteor.user();
-
-		if(user){
-			var nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id});
-		} else {
-			return null;
-		}
-
-		if(!nomineeVotes){
-			return null;
-		}
-
-		var votesTotal = nomineeVotes.votes;
-
-
-		for (var i = 0; i < Math.abs(votesTotal); ++i) {
-			if(votesTotal < 0){
-				str += '<p class="up"><i class="fa fa-thumbs-o-down"></i></p>';
-			} else {
-				str += '<p class="down"><i class="fa fa-thumbs-o-up"></i></p>';
-			}
-		}
-
-		return new Handlebars.SafeString(str);
-	},
-
 	voters : function(){
 		return Users = Users.find({}, {sort : [['name', 'asc']]});
 	},
@@ -250,12 +269,38 @@ Template.vote.helpers({
 // Event Helper methods functions
 var VoteApp = {
 
+	addName: function(nominee, name) {
+		Nominees.update({ _id: nominee._id }, { $set : { name: name } });
+	},
+
+	addDescription: function(nominee, description) {
+		Nominees.update({ _id: nominee._id }, { $set : { description: description } });
+	},
+
 	 voteUpNominee : function(nominee){
 		Nominees.update({_id : nominee._id},{$set : {votes: (nominee.votes + 1)}});
 	},
 
 	voteDownNominee : function(nominee){
 		Nominees.update({_id : nominee._id},{$set : {votes: (nominee.votes - 1)}});
+	},
+
+	removeNominee: function(nominee, user) {
+		Nominees.remove({ _id: nominee._id });
+		var nomineeVotesList = NomineeVotes.find({nominee : nominee._id});
+		if (nomineeVotesList.count()) {
+			let length = 0;
+			nomineeVotesList.forEach(function(nomineeVotes) {
+				console.log(++length);
+				console.log(nomineeVotes)
+				NomineeVotes.remove({ _id: nomineeVotes._id });
+				VoteApp.clearUserVote(nomineeVotes.user, nomineeVotes.votes);
+			});
+		}
+	},
+
+	clearUserVote: function(user, votes){
+		Meteor.call('clearUserVote', user, votes);
 	},
 
 	removeUserVote : function(user){
@@ -287,7 +332,7 @@ var VoteApp = {
 			var nomineeVotes = NomineeVotes.findOne({nominee : nominee._id, user : user._id});
 
 		if(nomineeVotes){
-			NomineeVotes.update({_id : nomineeVotes._id}, {$set : {votes : (nomineeVotes.votes  + 1 )}})
+			NomineeVotes.update({_id : nomineeVotes._id}, {$set : {votes : (nomineeVotes.votes  + 1 )}});
 		} else {
 			var id = NomineeVotes.insert({nominee : nominee._id, user: user._id, votes : 1});
 			nomineeVotes = NomineeVotes.findOne({_id : id });
@@ -300,5 +345,3 @@ var VoteApp = {
 		}
 	}
 };
-
-

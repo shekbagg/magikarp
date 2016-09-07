@@ -57,13 +57,23 @@
 				<h2 class="votesremaing">Votes remaining: <strong>{{ userVotes }}</strong></h2>
 			{{ /if }}
 
-
+			{{#if session "meteor_loggedin"}}
 			<div id="ballot">
 			<h2>Idea board</h2>
+
 			<ul class="nominees">
 			{{ #each nominees }}
 				<li class="nominee">
-					<strong class="title">{{ this.name }}</strong>
+					<p class="idea-name">
+						<p>{{ this.name }}</p>
+						<input type="text" class="name hide" placeholder="Enter a name...">
+					</p>
+					<p class="idea-description">
+						<p>Description: {{ this.description }}</p>
+						<input type="text" class="description hide" placeholder="Enter a description...">
+					</p>
+					<p>Nominator: {{ this.nominator.profile.name }}</p>
+					<p>Votes: {{ totalVotesForNominee }}</p>
 					<div class="info">
 
 					{{#if session "meteor_loggedin"}}
@@ -79,6 +89,10 @@
 							{{ else }}
 								<button disabled class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
 							{{ /if }}
+
+							{{ #if canDelete }}
+								<button class="down delete" type="button"><i class="fa fa-trash-o"></i></button>
+							{{ /if }}
 						</div>
 					{{ /if }}
 					</div>
@@ -88,10 +102,15 @@
 					</div>
 					{{ /if }}
 				</li>
+			{{ else }}
+				<div class="alert alert-warning" role="alert"><strong>No ideas</strong> added yet. Add a new idea to the list to get started.</div>
 			{{ /each }}
 			</ul>
 
 			</div>
+			{{else}}
+			<div class="alert alert-info" role="alert"><strong>Please login</strong> with your TradeGecko Google account to proceed.</div>
+			{{ /if }}
 
 			{{#if session "meteor_loggedin"}}
 
