@@ -64,6 +64,10 @@
 			{{ #each nominees }}
 				<li class="nominee">
 					<strong class="title">{{ this.name }}</strong>
+					<p>
+						<p>{{ this.description }}</p>
+						<input type="text" class="description hide">
+					</p>
 					<div class="info">
 
 					{{#if session "meteor_loggedin"}}

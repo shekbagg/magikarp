@@ -31,6 +31,23 @@ Template.vote.events({
 		}
 	},
 
+	'click .nominee': function(e) {
+		const $input = $(e.currentTarget).find('.description');
+		$input.prev('p').addClass('hide');
+		$input.removeClass('hide');
+	},
+
+	'keyup .description': function(e) {
+		const $input = $(e.currentTarget);
+		if (e.keyCode === 13) {
+			if ($input.val()) {
+				VoteApp.addDescription(this, $input.val());
+			}
+			$input.addClass('hide');
+			$input.prev('p').removeClass('hide');
+		}
+	},
+
 	'click .vote-button' : function(e){
 		e.preventDefault();
 		if(Meteor.user()){
@@ -117,7 +134,6 @@ Template.vote.events({
 // Vote Template Helpers
 
 Template.vote.helpers({
-
 
 	isAdmin : function(){
 		if(Meteor.user()){
@@ -250,6 +266,10 @@ Template.vote.helpers({
 // Event Helper methods functions
 var VoteApp = {
 
+	addDescription: function(nominee, description) {
+		Nominees.update({ _id: nominee._id }, { $set : { description: description } });
+	},
+
 	 voteUpNominee : function(nominee){
 		Nominees.update({_id : nominee._id},{$set : {votes: (nominee.votes + 1)}});
 	},
@@ -300,5 +320,3 @@ var VoteApp = {
 		}
 	}
 };
-
-
