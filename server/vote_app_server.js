@@ -26,7 +26,7 @@
 
 
 			if(!voteSetting){
-				Settings.insert({name : 'votesPerUser', value : 5});
+				Settings.insert({name : 'votesPerUser', value : 50});
 				voteSetting = Settings.findOne({name : 'votesPerUser'});
 			}
 
@@ -62,15 +62,18 @@
 				Meteor.users.update({}, { $set: {votes : Settings.findOne({name : 'votesPerUser'}).value }}, {multi: true});
 			}
 		},
-		addUserVote : function(){
+		addUserVote: function(){
 			var user = Meteor.user();
 			Meteor.users.update({_id : user._id},{$set : {votes: (user.votes + 1)}});
 		},
-		removeUserVote : function(){
+		removeUserVote: function(){
 			var user = Meteor.user();
 			Meteor.users.update({_id : user._id},{$set : {votes: (user.votes - 1)}});
-
-
+		},
+		clearUserVote: function(user_id, votes) {
+			var user = Meteor.users.findOne({ _id: user_id });
+			console.log(user);
+			Meteor.users.update({ _id: user_id }, {$set : {votes: (user.votes + votes)}});
 		},
 
 		discardBallot : function(userId){

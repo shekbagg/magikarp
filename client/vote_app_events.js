@@ -70,6 +70,14 @@ Template.vote.events({
 		}
 	},
 
+	'click .delete': function(e) {
+		var user = Meteor.user();
+		if (user) {
+			VoteApp.removeNominee(this, user);
+		}
+		return false;
+	},
+
 	'blur #title' : function(){
 		if(Meteor.user().isAdmin){
 			var $title = $('#title'),
@@ -179,7 +187,7 @@ Template.vote.helpers({
 
 	},
 
-	userVotes : function(){
+	userVotes: function(){
 		if(Meteor.user()){
 			return Meteor.user().votes;
 		}
@@ -276,6 +284,24 @@ var VoteApp = {
 
 	voteDownNominee : function(nominee){
 		Nominees.update({_id : nominee._id},{$set : {votes: (nominee.votes - 1)}});
+	},
+
+	removeNominee: function(nominee, user) {
+		Nominees.remove({ _id: nominee._id });
+		var nomineeVotesList = NomineeVotes.find({nominee : nominee._id});
+		if (nomineeVotesList.count()) {
+			let length = 0;
+			nomineeVotesList.forEach(function(nomineeVotes) {
+				console.log(++length);
+				console.log(nomineeVotes)
+				NomineeVotes.remove({ _id: nomineeVotes._id });
+				VoteApp.clearUserVote(nomineeVotes.user, nomineeVotes.votes);
+			});
+		}
+	},
+
+	clearUserVote: function(user, votes){
+		Meteor.call('clearUserVote', user, votes);
 	},
 
 	removeUserVote : function(user){
