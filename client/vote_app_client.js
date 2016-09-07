@@ -13,14 +13,14 @@ Deps.autorun(function() {
 		console.log('Hello!');
 
 
-		if (Meteor.user()) {
-			if(/@tradegecko.com\s*$/.test(Meteor.user().services.google.email)) {
-					console.log('Welcome gecko!');
-			} else {
-				console.log('GTFO');
-				Meteor.logout();
-			}
-		}
+		// if (Meteor.user()) {
+		// 	if(/@tradegecko.com\s*$/.test(Meteor.user().services.google.email)) {
+		// 			console.log('Welcome gecko!');
+		// 	} else {
+		// 		console.log('GTFO');
+		// 		Meteor.logout();
+		// 	}
+		// }
 	} else {
 		console.log('Bye!');
 
