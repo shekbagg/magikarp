@@ -12,14 +12,13 @@
 	// Server Methods
 	Meteor.methods({
 		onLogin: function() {
-			var admins =  Assets.getText('admins.json') && JSON.parse(Assets.getText('admins.json')) || [],
-				user = Meteor.user();
+			var user = Meteor.user();
 
 			if(!user){
 				return null;
 			}
 
-			var	isAdmin = user.services.facebook ? admins.indexOf(user.services.facebook.id) > -1 : false,
+			var	isAdmin = false,
 				$set = {},
 				voteSetting = Settings.findOne({name : 'votesPerUser'}),
 				allowDownVoteSetting = Settings.findOne({name : 'allowDownVotes'});
