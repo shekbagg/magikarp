@@ -33,8 +33,10 @@ Template.vote.events({
 
 	'click .nominee': function(e) {
 		const $input = $(e.currentTarget).find('.description');
-		$input.prev('p').addClass('hide');
-		$input.removeClass('hide');
+		if (this.nominator._id === Meteor.user()._id) {
+			$input.prev('p').addClass('hide');
+			$input.removeClass('hide');
+		}
 	},
 
 	'keyup .description': function(e) {
@@ -68,6 +70,7 @@ Template.vote.events({
 			}
 
 		}
+		return false;
 	},
 
 	'click .delete': function(e) {

@@ -63,9 +63,9 @@
 			<ul class="nominees">
 			{{ #each nominees }}
 				<li class="nominee">
-					<strong class="title">{{ this.name }}</strong>
+					<p>{{ this.name }}</p>
 					<p>
-						<p>{{ this.description }}</p>
+						<p>Description: {{ this.description }}</p>
 						<input type="text" class="description hide">
 					</p>
 					<p>Nominator: {{ this.nominator.profile.name }}</p>
