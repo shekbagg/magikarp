@@ -64,10 +64,13 @@
 			<ul class="nominees">
 			{{ #each nominees }}
 				<li class="nominee">
-					<p>{{ this.name }}</p>
-					<p>
+					<p class="idea-name">
+						<p>{{ this.name }}</p>
+						<input type="text" class="name hide" placeholder="Enter a name...">
+					</p>
+					<p class="idea-description">
 						<p>Description: {{ this.description }}</p>
-						<input type="text" class="description hide">
+						<input type="text" class="description hide" placeholder="Enter a description...">
 					</p>
 					<p>Nominator: {{ this.nominator.profile.name }}</p>
 					<p>Votes: {{ totalVotesForNominee }}</p>

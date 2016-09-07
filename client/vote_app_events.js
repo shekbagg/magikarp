@@ -31,7 +31,7 @@ Template.vote.events({
 		}
 	},
 
-	'click .nominee': function(e) {
+	'click .idea-description': function(e) {
 		const $input = $(e.currentTarget).find('.description');
 		if (this.nominator._id === Meteor.user()._id) {
 			$input.prev('p').addClass('hide');
@@ -45,6 +45,26 @@ Template.vote.events({
 		if (e.keyCode === 13) {
 			if ($input.val()) {
 				VoteApp.addDescription(this, $input.val());
+			}
+			$input.addClass('hide');
+			$input.prev('p').removeClass('hide');
+		}
+	},
+
+	'click .idea-name': function(e) {
+		const $input = $(e.currentTarget).find('.name');
+		if (this.nominator._id === Meteor.user()._id) {
+			$input.prev('p').addClass('hide');
+			$input.removeClass('hide');
+			$input.val(this.name);
+		}
+	},
+
+	'keyup .name': function(e) {
+		const $input = $(e.currentTarget);
+		if (e.keyCode === 13) {
+			if ($input.val()) {
+				VoteApp.addName(this, $input.val());
 			}
 			$input.addClass('hide');
 			$input.prev('p').removeClass('hide');
@@ -248,6 +268,10 @@ Template.vote.helpers({
 //
 // Event Helper methods functions
 var VoteApp = {
+
+	addName: function(nominee, name) {
+		Nominees.update({ _id: nominee._id }, { $set : { name: name } });
+	},
 
 	addDescription: function(nominee, description) {
 		Nominees.update({ _id: nominee._id }, { $set : { description: description } });
