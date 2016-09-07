@@ -57,9 +57,10 @@
 				<h2 class="votesremaing">Votes remaining: <strong>{{ userVotes }}</strong></h2>
 			{{ /if }}
 
-
+			{{#if session "meteor_loggedin"}}
 			<div id="ballot">
 			<h2>Idea board</h2>
+
 			<ul class="nominees">
 			{{ #each nominees }}
 				<li class="nominee">
@@ -94,10 +95,15 @@
 					</div>
 					{{ /if }}
 				</li>
+			{{ else }}
+				<div class="alert alert-warning" role="alert"><strong>No ideas</strong> added yet. Add a new idea to the list to get started.</div>
 			{{ /each }}
 			</ul>
 
 			</div>
+			{{else}}
+			<div class="alert alert-info" role="alert"><strong>Please login</strong> with your TradeGecko Google account to proceed.</div>
+			{{ /if }}
 
 			{{#if session "meteor_loggedin"}}
 
