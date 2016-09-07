@@ -68,6 +68,7 @@
 						<p>{{ this.description }}</p>
 						<input type="text" class="description hide">
 					</p>
+					<p>Nominator: {{ this.nominator.profile.name }}</p>
 					<div class="info">
 
 					{{#if session "meteor_loggedin"}}

@@ -7,9 +7,9 @@ Template.vote.events({
 		val = $input.val();
 
 	if(val){
-			var nomineeId = Nominees.insert({name : $input.val(), votes : 1}),
-				nominee = {_id : nomineeId},
-				user = Meteor.user();
+			const user = Meteor.user();
+			var nomineeId = Nominees.insert({name : $input.val(), votes : 1, nominator: user}),
+				nominee = {_id : nomineeId};
 
 			VoteApp.increaseNomineeVotes(nominee, user);
 			$input.val('');
@@ -307,7 +307,7 @@ var VoteApp = {
 			var nomineeVotes = NomineeVotes.findOne({nominee : nominee._id, user : user._id});
 
 		if(nomineeVotes){
-			NomineeVotes.update({_id : nomineeVotes._id}, {$set : {votes : (nomineeVotes.votes  + 1 )}})
+			NomineeVotes.update({_id : nomineeVotes._id}, {$set : {votes : (nomineeVotes.votes  + 1 )}});
 		} else {
 			var id = NomineeVotes.insert({nominee : nominee._id, user: user._id, votes : 1});
 			nomineeVotes = NomineeVotes.findOne({_id : id });
