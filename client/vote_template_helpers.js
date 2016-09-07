@@ -123,25 +123,18 @@ Template.vote.helpers({
 		user = Meteor.user();
 
 		if(user){
-			var nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id});
+			var nomineeVotesList = NomineeVotes.find({ nominee: this._id });
 		} else {
 			return null;
 		}
 
-		if(!nomineeVotes){
-			return null;
-		}
-
-		var votesTotal = nomineeVotes.votes;
-
-
-		for (var i = 0; i < Math.abs(votesTotal); ++i) {
-			if(votesTotal < 0){
-				str += '<p class="up"><i class="fa fa-thumbs-o-down"></i></p>';
-			} else {
-				str += '<p class="down"><i class="fa fa-thumbs-o-up"></i></p>';
+		nomineeVotesList.forEach(function(nomineeVotes) {
+			const votesTotal = nomineeVotes.votes;
+			const user = Meteor.users.findOne({ _id: nomineeVotes.user });
+			if (votesTotal !== 0) {
+				str += '<p class="up">' + user.profile.name + '-' + votesTotal +'</p>';
 			}
-		}
+		});
 
 		return new Handlebars.SafeString(str);
 	},

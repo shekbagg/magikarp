@@ -235,35 +235,6 @@ Template.vote.helpers({
 		}
 	},
 
-
-	userVotesForNominee : function(){
-		var str = '',
-		user = Meteor.user();
-
-		if(user){
-			var nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id});
-		} else {
-			return null;
-		}
-
-		if(!nomineeVotes){
-			return null;
-		}
-
-		var votesTotal = nomineeVotes.votes;
-
-
-		for (var i = 0; i < Math.abs(votesTotal); ++i) {
-			if(votesTotal < 0){
-				str += '<p class="up"><i class="fa fa-thumbs-o-down"></i></p>';
-			} else {
-				str += '<p class="down"><i class="fa fa-thumbs-o-up"></i></p>';
-			}
-		}
-
-		return new Handlebars.SafeString(str);
-	},
-
 	voters : function(){
 		return Users = Users.find({}, {sort : [['name', 'asc']]});
 	},

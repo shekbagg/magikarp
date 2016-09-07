@@ -39,11 +39,7 @@
 				$set.votes = voteSetting.value;
 			}
 
-			if(user.services.facebook){
-				$set.profileLink = user.services.facebook.link;
-			} else if(user.services.twitter){
-				$set.profileLink = 'http://www.twitter.com/' + user.services.twitter.screenName;
-			} else if(user.services.google){
+		  if(user.services.google){
 				$set.profileLink = user.services.google.email;
 			}
 
@@ -72,7 +68,6 @@
 		},
 		clearUserVote: function(user_id, votes) {
 			var user = Meteor.users.findOne({ _id: user_id });
-			console.log(user);
 			Meteor.users.update({ _id: user_id }, {$set : {votes: (user.votes + votes)}});
 		},
 
