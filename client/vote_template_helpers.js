@@ -117,6 +117,22 @@ Template.vote.helpers({
 		}
 	},
 
+	totalVotesForNominee: function() {
+		var str = '',
+		total = 0,
+		user = Meteor.user();
+
+		if(user){
+			var nomineeVotesList = NomineeVotes.find({ nominee: this._id });
+			nomineeVotesList.forEach(function(nomineeVotes) {
+				return total += nomineeVotes.votes;
+			});
+		} else {
+			return null;
+		}
+		return total;
+	},
+
 
 	userVotesForNominee : function(){
 		var str = '',
