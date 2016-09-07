@@ -132,7 +132,7 @@ Template.vote.helpers({
 			const votesTotal = nomineeVotes.votes;
 			const user = Meteor.users.findOne({ _id: nomineeVotes.user });
 			if (votesTotal !== 0) {
-				str += '<p class="up">' + user.profile.name + '-' + votesTotal +'</p>';
+				str += '<img src="' + user.services.google.picture + '" title="' + user.profile.name + ': ' + votesTotal + ' votes" style="border-radius: 50%; width: 5%">';
 			}
 		});
 
