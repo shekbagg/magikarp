@@ -22,6 +22,4 @@ random@1.0.10
 ejson@1.0.12
 spacebars@1.0.12
 check@1.2.3
-standard-minifier-css@1.2.0
-standard-minifier-js@1.2.0
 shell-server
