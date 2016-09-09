@@ -66,7 +66,15 @@
 				<li class="nominee">
 					<p class="idea-name">
 						<h4><strong>{{ this.name }}</strong></h4>
-						<span>by {{ this.nominator.profile.name }} <img src="{{ this.nominator.services.google.picture }}" style="border-radius: 50%; width: 30px; height:30px;"></span>
+						<span>by </span>
+						<span class="nominator-info">
+							{{ this.nominator.profile.name }}
+							<img src="{{ this.nominator.services.google.picture }}" style="border-radius: 50%; width: 30px; height:30px;">
+							{{ #if isAdmin }}
+								<i class="fa fa-edit"></i>
+							{{ /if }}
+						</span>
+						<input type="text" class="nominator-input hide">
 					</p>
 					<p class="idea-description">
 						<p>

@@ -72,6 +72,12 @@
 			var user = Meteor.users.findOne({ _id: user_id });
 			Meteor.users.update({ _id: user_id }, {$set : {votes: (user.votes + votes)}});
 		},
+		changeNominator: function(nominee, nominatorEmail) {
+			const newNominator = Meteor.users.findOne({ 'services.google.email': nominatorEmail });
+			if (newNominator) {
+				Nominees.update({ _id: nominee._id }, { $set : { nominator: newNominator } });
+			}
+		},
 
 		discardBallot : function(userId){
 			if(Meteor.user().isAdmin){

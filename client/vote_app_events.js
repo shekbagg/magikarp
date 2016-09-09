@@ -31,9 +31,27 @@ Template.vote.events({
 		}
 	},
 
+	'click .nominator-info': function(e) {
+		if (Session.get('admins').includes(Meteor.user().services.google.email)) {
+			const $input = $(e.currentTarget).next('.nominator-input');
+			$(e.currentTarget).addClass('hide');
+			$input.removeClass('hide');
+			$input.val(this.nominator.services.google.email);
+		}
+	},
+
+	'keyup .nominator-input': function(e) {
+		const $input = $(e.currentTarget);
+		if (e.keyCode === 13) {
+			VoteApp.changeNominator(this, $input.val());
+			$input.addClass('hide');
+			$input.prev('.nominator-info').removeClass('hide');
+		}
+	},
+
 	'click .idea-description': function(e) {
 		const $input = $(e.currentTarget).find('.description');
-		if (Session.get('admins').concat(Meteor.user().services.google.email).includes(this.nominator.services.google.email)) {
+		if (Session.get('admins').concat(this.nominator.services.google.email).includes(Meteor.user().services.google.email)) {
 			$input.prev('p').addClass('hide');
 			$input.removeClass('hide');
 			$input.val(this.description);
@@ -142,6 +160,10 @@ Template.vote.events({
 //
 // Event Helper methods functions
 var VoteApp = {
+
+	changeNominator: function(nominee, nominatorEmail) {
+		Meteor.call('changeNominator', nominee, nominatorEmail);
+	},
 
 	addName: function(nominee, name) {
 		Nominees.update({ _id: nominee._id }, { $set : { name: name } });

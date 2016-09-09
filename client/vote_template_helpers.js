@@ -72,6 +72,10 @@ Template.vote.helpers({
 		}
 	},
 
+	isAdmin: function(){
+		return Session.get('admins').includes(Meteor.user().services.google.email);
+	},
+
 	canDelete: function(){
 		const superpowers = Session.get('admins');
 		superpowers.push(this.nominator.services.google.email);
