@@ -74,9 +74,8 @@
 		},
 		changeNominator: function(nominee, nominatorEmail) {
 			const newNominator = Meteor.users.findOne({ 'services.google.email': nominatorEmail });
-			if (newNominator) {
-				Nominees.update({ _id: nominee._id }, { $set : { nominator: newNominator } });
-			}
+			Nominees.update({ _id: nominee._id }, { $set : { nominator: newNominator || nominatorEmail } });
+			return !!newNominator;
 		},
 
 		discardBallot : function(userId){

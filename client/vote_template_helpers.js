@@ -122,6 +122,16 @@ Template.vote.helpers({
 		}
 	},
 
+	nominatorInfo: function() {
+		var str = '';
+		if (this.nominator.profile && this.nominator.services) {
+			str = this.nominator.profile.name + ' <img src="' + this.nominator.services.google.picture + '" style="border-radius: 50%; width: 30px; height:30px;">';
+		} else {
+			str = this.nominator;
+			Meteor.call('changeNominator', this, this.nominator);
+		}
+		return new Handlebars.SafeString(str);
+	},
 
 	userVotesForNominee : function(){
 		var str = '',
