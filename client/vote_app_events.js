@@ -42,8 +42,10 @@ Template.vote.events({
 
 	'keyup .nominator-input': function(e) {
 		const $input = $(e.currentTarget);
-		if (e.keyCode === 13) {
-			VoteApp.changeNominator(this, $input.val());
+		if ([13, 27].includes(e.keyCode)) {
+			if (e.keyCode === 13) {
+				VoteApp.changeNominator(this, $input.val());
+			}
 			$input.addClass('hide');
 			$input.prev('.nominator-info').removeClass('hide');
 		}
