@@ -2,8 +2,6 @@
 // Vote Template Helpers
 
 Template.vote.helpers({
-
-
 	isAdmin : function(){
 		if(Meteor.user()){
 			return Meteor.user().isAdmin;
@@ -13,12 +11,10 @@ Template.vote.helpers({
 	activeUsers : function(){
 		if( Meteor.user() ){
 			var returnArr = [];
-
 			Meteor.users.find().forEach(function(user){
 				var nameArr = user.profile.name.split(' ');
 				returnArr.push( {name : nameArr[0] + ' ' + nameArr[1].substr(0, 1) } );
 			});
-
 			return returnArr;
 		}
 	},
@@ -33,7 +29,6 @@ Template.vote.helpers({
 
 	title : function(){
 		var setting = Settings.findOne({name : 'title'});
-
 		if(setting){
 			return setting.value;
 		}	else {
@@ -43,34 +38,34 @@ Template.vote.helpers({
 
 	votesPerUser : function(){
 		var setting = Settings.findOne({name : 'votesPerUser'});
-
 		if(setting){
 			return setting.value;
 		} else {
-			return 5;
+			return 20;
 		}
-
 	},
 
 	allowDownVotes : function(){
 		var setting = Settings.findOne({name : 'allowDownVotes'});
-
 		if(setting){
 			return setting.value;
 		} else {
-			return true;
+			return false;
 		}
+	},
 
+	hasDescription: function() {
+		return this.description && this.description.trim().length;
 	},
 
 	userVotes : function(){
-		if(Meteor.user()){
+		if (Meteor.user()){
 			return Meteor.user().votes;
 		}
 	},
 
 	canVote : function(){
-		if(Session.get("meteor_loggedin")){
+		if (Session.get("meteor_loggedin")){
 			return Meteor.user().votes > 0;
 		} else {
 			return false;
@@ -78,11 +73,13 @@ Template.vote.helpers({
 	},
 
 	canDelete: function(){
-		return [Meteor.user().services.google.email].includes(this.nominator.services.google.email);
+		const superpowers = Session.get('admins');
+		superpowers.push(this.nominator.services.google.email);
+		return superpowers.includes(Meteor.user().services.google.email);
 	},
 
 	canVoteUp : function(){
-		if(Session.get("meteor_loggedin")){
+		if (Session.get("meteor_loggedin")){
 			var user = Meteor.user(),
 			nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id});
 
@@ -119,22 +116,6 @@ Template.vote.helpers({
 		} else {
 			return false;
 		}
-	},
-
-	totalVotesForNominee: function() {
-		var str = '',
-		total = 0,
-		user = Meteor.user();
-
-		if(user){
-			var nomineeVotesList = NomineeVotes.find({ nominee: this._id });
-			nomineeVotesList.forEach(function(nomineeVotes) {
-				return total += nomineeVotes.votes;
-			});
-		} else {
-			return null;
-		}
-		return total;
 	},
 
 

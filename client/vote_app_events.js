@@ -33,7 +33,7 @@ Template.vote.events({
 
 	'click .idea-description': function(e) {
 		const $input = $(e.currentTarget).find('.description');
-		if (this.nominator._id === Meteor.user()._id) {
+		if (Session.get('admins').concat(Meteor.user().services.google.email).includes(this.nominator.services.google.email)) {
 			$input.prev('p').addClass('hide');
 			$input.removeClass('hide');
 			$input.val(this.description);
@@ -43,29 +43,7 @@ Template.vote.events({
 	'keyup .description': function(e) {
 		const $input = $(e.currentTarget);
 		if (e.keyCode === 13) {
-			if ($input.val()) {
-				VoteApp.addDescription(this, $input.val());
-			}
-			$input.addClass('hide');
-			$input.prev('p').removeClass('hide');
-		}
-	},
-
-	'click .idea-name': function(e) {
-		const $input = $(e.currentTarget).find('.name');
-		if (this.nominator._id === Meteor.user()._id) {
-			$input.prev('p').addClass('hide');
-			$input.removeClass('hide');
-			$input.val(this.name);
-		}
-	},
-
-	'keyup .name': function(e) {
-		const $input = $(e.currentTarget);
-		if (e.keyCode === 13) {
-			if ($input.val()) {
-				VoteApp.addName(this, $input.val());
-			}
+			VoteApp.addDescription(this, $input.val());
 			$input.addClass('hide');
 			$input.prev('p').removeClass('hide');
 		}
@@ -158,110 +136,6 @@ Template.vote.events({
 		}, 10);
 
 	}
-
-});
-
-
-//
-// Vote Template Helpers
-
-Template.vote.helpers({
-
-	isAdmin : function(){
-		if(Meteor.user()){
-			return Meteor.user().isAdmin;
-		}
-	},
-
-	activeUsers : function(){
-		if( Meteor.user() ){
-			var returnArr = [];
-
-			Meteor.users.find().forEach(function(user){
-				var nameArr = user.profile.name.split(' ');
-				returnArr.push( {name : nameArr[0] + ' ' + nameArr[1].substr(0, 1) } );
-			});
-
-			return returnArr;
-		}
-	},
-
-	nominees : function(){
-		return Nominees.find({}, {sort : [['votes', 'desc']]});
-	},
-
-	title : function(){
-		var setting = Settings.findOne({name : 'title'});
-
-		if(setting){
-			return setting.value;
-		}	else {
-		return 'Vote on...';
-		}
-	},
-
-	votesPerUser : function(){
-		var setting = Settings.findOne({name : 'votesPerUser'});
-
-		if(setting){
-			return setting.value;
-		} else {
-			return 5;
-		}
-
-	},
-
-	userVotes: function(){
-		if(Meteor.user()){
-			return Meteor.user().votes;
-		}
-	},
-
-	canVote : function(){
-		if(Session.get("meteor_loggedin")){
-			return Meteor.user().votes > 0;
-		} else {
-			return false;
-		}
-	},
-
-	canVoteUp : function(){
-		if(Session.get("meteor_loggedin")){
-			var user = Meteor.user(),
-			nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id});
-
-			if(user.votes > 0 ) return true;
-
-			if(nomineeVotes && nomineeVotes.votes < 0){
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false
-		}
-	},
-
-	canVoteDown : function(){
-		if(Session.get("meteor_loggedin")){
-			var user = Meteor.user(),
-			nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id});
-
-			if(user.votes > 0 ) return true;
-
-			if(nomineeVotes && nomineeVotes.votes >=1){
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	},
-
-	voters : function(){
-		return Users = Users.find({}, {sort : [['name', 'asc']]});
-	},
 
 });
 

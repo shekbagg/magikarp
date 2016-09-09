@@ -66,14 +66,24 @@
 				<li class="nominee">
 					<p class="idea-name">
 						<h4><strong>{{ this.name }}</strong></h4>
-						<input type="text" class="name hide" placeholder="Enter a name...">
+						<span>by {{ this.nominator.profile.name }} <img src="{{ this.nominator.services.google.picture }}" style="border-radius: 50%; width: 30px; height:30px;"></span>
 					</p>
 					<p class="idea-description">
-						<p>Description: {{ this.description }}</p>
-						<input type="text" class="description hide" placeholder="Enter a description...">
+						<p>
+							{{ #if hasDescription }}
+								{{ this.description }}
+							{{ else }}
+								{{ #if canDelete }}
+									<em>Add a description...</em>
+								{{ /if }}
+							{{ /if }}
+							{{ #if canDelete }}
+								&nbsp;<i class="fa fa-edit"></i>
+							{{ /if }}
+						</p>
+						<textarea class="description hide" placeholder="Enter a description..." rows=2 cols=50></textarea>
 					</p>
-					<p>Nominator: {{ this.nominator.profile.name }}</p>
-					<p>Votes: {{ totalVotesForNominee }}</p>
+					<p>Votes: {{ this.votes }}</p>
 					<div class="info">
 
 					{{#if session "meteor_loggedin"}}

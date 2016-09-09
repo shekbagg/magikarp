@@ -25,12 +25,12 @@
 
 
 			if(!voteSetting){
-				Settings.insert({name : 'votesPerUser', value : 50});
+				Settings.insert({name : 'votesPerUser', value : 20});
 				voteSetting = Settings.findOne({name : 'votesPerUser'});
 			}
 
 			if(!allowDownVoteSetting){
-				Settings.insert({name : 'allowDownVotes', value : true});
+				Settings.insert({name : 'allowDownVotes', value : false});
 				allowDownVoteSetting = Settings.findOne({name : 'allowDownVotes'});
 			}
 
@@ -56,6 +56,9 @@
 				// Reset user votes
 				Meteor.users.update({}, { $set: {votes : Settings.findOne({name : 'votesPerUser'}).value }}, {multi: true});
 			}
+		},
+		getAdmins: function() {
+			return Meteor.settings.admins;
 		},
 		addUserVote: function(){
 			var user = Meteor.user();
@@ -122,3 +125,4 @@
 			profileLink: 1
 		}});
 	});
+

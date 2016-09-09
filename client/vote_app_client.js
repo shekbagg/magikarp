@@ -10,6 +10,9 @@ Deps.autorun(function() {
 	// Handle on Login
 	if(Meteor.userId()){
 		Meteor.call('onLogin');
+		Meteor.call('getAdmins', function(err, admins) {
+			Session.set("admins", admins);
+		});
 		console.log('Hello!');
 
 
@@ -23,10 +26,7 @@ Deps.autorun(function() {
 		// }
 	} else {
 		console.log('Bye!');
-
 		$('#results, #changevotes').addClass('hide');
 		$('#ballot, #viewresults').removeClass('hide');
-
 	}
-
 });
