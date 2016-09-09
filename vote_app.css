@@ -11,6 +11,7 @@
 
 	.input-lg, .btn-lg { margin-top: 10px; }
 	.input-lg { margin-left: auto; margin-right: auto; }
+	.idea-description { padding-right: 150px; }
 
 	button { display: inline-block; padding: 5px 13px; position: relative; border-radius: 3px; cursor: pointer; outline: none; color: #fff; font-size: 15px; position: relative; -webkit-appearance: none; text-align: center; -webkit-appearance: none; appearance: none; background: #429BCE;  border: solid 0px #fff; }
 	button.up,
