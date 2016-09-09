@@ -20,7 +20,7 @@ Template.vote.helpers({
 	},
 
 	nominees : function(){
-		return Nominees.find({}, {sort : [['name', 'asc']]});
+		return Nominees.find({}, {sort : [['votes', 'desc']]});
 	},
 
 	results : function(){
