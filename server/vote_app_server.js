@@ -58,7 +58,7 @@
 			}
 		},
 		getAdmins: function() {
-			return Meteor.settings.admins;
+			return ['abhilash@tradegecko.com'];
 		},
 		addUserVote: function(){
 			var user = Meteor.user();
