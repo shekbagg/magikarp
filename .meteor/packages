@@ -22,4 +22,4 @@ random@1.0.10
 ejson@1.0.12
 spacebars@1.0.12
 check@1.2.3
-shell-server
+shell-server@0.2.1

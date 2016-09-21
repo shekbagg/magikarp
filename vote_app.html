@@ -1,17 +1,9 @@
 	<head>
 		<title>Geckothon Ideas</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<link rel="apple-touch-icon" href="/vote-bg.png" />
-		<link rel="apple-touch-icon" sizes="76x76" href="/vote-bg.png" />
-		<link rel="apple-touch-icon" sizes="120x120" href="/vote-bg.png" />
-		<link rel="apple-touch-icon" sizes="152x152" href="/vote-bg.png" />
-		<link rel="icon" sizes="196x196" href="/vote-bg.png">
-		<link rel="shortcut icon" href="/vote.png">
-
 	</head>
 	<body>
 		{{> vote}}
@@ -21,17 +13,8 @@
 		<div class="navbar navbar-default" role="navigation">
 		    <div class="navbar-header">
 		        <a class="navbar-brand" href="#">Geckothon</a>
-		        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-		            <span class="sr-only">Toggle navigation</span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		        </button>
 		    </div>
 		    <div class="navbar-collapse collapse">
-		        <ul class="nav navbar-nav">
-		            <li class="active"><a href="#">Popular</a></li>
-		        </ul>
 		        <ul class="nav navbar-nav navbar-right">
 		            {{> loginButtons}}
 		        </ul>
@@ -65,16 +48,16 @@
 			{{ #each nominees }}
 				<li class="nominee">
 					<p class="idea-name">
-						<h4><strong>{{ this.name }}</strong>{{ #if canDelete }} <i class="fa fa-edit"></i>{{ /if }}</h4>
-						<p><input type="text" class="name hide" placeholder="Enter a name..."></p>
+						<h4><strong>{{ this.name }}</strong>{{ #if canDelete }} <a class="btn btn-info btn-xs left-margin"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> {{ /if }}</h4>
+						<p><input type="text" class="name hide form-control" placeholder="Enter a name..."></p>
 						<span>by </span>
 						<span class="nominator-info">
 							{{ nominatorInfo }}
 							{{ #if isAdmin }}
-								<i class="fa fa-edit"></i>
+								<a class="btn btn-info btn-xs left-margin"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 							{{ /if }}
 						</span>
-						<input type="text" class="nominator-input hide">
+						<input type="text" class="nominator-input hide form-control">
 					</p>
 					<p class="idea-description">
 						<p>
@@ -86,10 +69,10 @@
 								{{ /if }}
 							{{ /if }}
 							{{ #if canDelete }}
-								&nbsp;<i class="fa fa-edit"></i>
+								&nbsp;<a class="btn btn-info btn-xs left-margin"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 							{{ /if }}
 						</p>
-						<textarea class="description hide" placeholder="Enter a description..." rows=2 cols=50></textarea>
+						<textarea class="description hide form-control" placeholder="Enter a description..." rows=2 cols=50></textarea>
 					</p>
 					<p>Votes: {{ this.votes }}</p>
 					<div class="info">

@@ -146,6 +146,24 @@
 	.idea-input {
 		width: 500px !important;
 	}
+
+	.name {
+		width: 100%;
+		max-width: 700px;
+	}
+
+	.description {
+		width: 100%;
+		max-width: 700px;
+	}
+
+	.left-margin {
+		margin-left: 8px;
+	}
+
+	.centered {
+		text-align: center;
+	}
 @media only screen and (max-width: 420px) {
 
 	fieldset  .form  div { border-left: none; }
