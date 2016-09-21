@@ -51,6 +51,24 @@ Template.vote.events({
 		}
 	},
 
+	'click .idea-name': function(e) {
+		const $input = $(e.currentTarget).find('.name');
+		if (Session.get('admins').concat(this.nominator.services.google.email).includes(Meteor.user().services.google.email)) {
+			$input.parent().prev('h4').addClass('hide');
+			$input.removeClass('hide');
+			$input.val(this.name);
+		}
+	},
+
+	'keyup .name': function(e) {
+		const $input = $(e.currentTarget);
+		if (e.keyCode === 13) {
+			VoteApp.addName(this, $input.val());
+			$input.addClass('hide');
+			$input.parent().prev('h4').removeClass('hide');
+		}
+	},
+
 	'click .idea-description': function(e) {
 		const $input = $(e.currentTarget).find('.description');
 		if (Session.get('admins').concat(this.nominator.services.google.email).includes(Meteor.user().services.google.email)) {

@@ -65,13 +65,11 @@
 			{{ #each nominees }}
 				<li class="nominee">
 					<p class="idea-name">
-						<h4><strong>{{ this.name }}</strong></h4>
+						<h4><strong>{{ this.name }}</strong>{{ #if canDelete }} <i class="fa fa-edit"></i>{{ /if }}</h4>
+						<p><input type="text" class="name hide" placeholder="Enter a name..."></p>
 						<span>by </span>
 						<span class="nominator-info">
 							{{ nominatorInfo }}
-
-<!-- 							{{ this.nominator.profile.name }}
-							<img src="{{ this.nominator.services.google.picture }}" style="border-radius: 50%; width: 30px; height:30px;"> -->
 							{{ #if isAdmin }}
 								<i class="fa fa-edit"></i>
 							{{ /if }}
