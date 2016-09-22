@@ -47,6 +47,12 @@
 			{{ /if }}
 
 			{{#if session "meteor_loggedin"}}
+
+			<div class="btn-group sort-buttons" role="group" aria-label="Basic example">
+			  <button type="button" class="btn btn-lg btn-default btn-primary popular">Popular</button>
+			  <button type="button" class="btn btn-lg btn-default random">Random</button>
+			</div>
+
 			<div id="ballot">
 			<h2>Idea board</h2>
 

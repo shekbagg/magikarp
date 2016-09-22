@@ -9,6 +9,9 @@
 	h1 { margin-bottom: 2em; }
 	h2 { text-align: left; }
 
+	.sort-buttons { width: 100%; display: flex; justify-content: center; padding: 20px 0; }
+	.sort-buttons > .btn { outline: none; }
+
 	.input-lg, .btn-lg { margin-top: 10px; }
 	.input-lg { margin-left: auto; margin-right: auto; }
 	.idea-description { padding-right: 150px; }

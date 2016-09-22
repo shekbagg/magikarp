@@ -20,7 +20,13 @@ Template.vote.helpers({
 	},
 
 	nominees : function(){
-		return Nominees.find({}, {sort : [['votes', 'desc']]});
+		if (Session.get('sortPopular')) {
+			return Nominees.find({}, {sort : [['votes', 'desc']]});
+		} else {
+			return Nominees.find({}).fetch().sort(function() {
+			  return .5 - Math.random();
+			});
+		}
 	},
 
 	results : function(){

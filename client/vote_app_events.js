@@ -16,6 +16,20 @@ Template.vote.events({
 		}
 	},
 
+	'click .popular': function(e) {
+			Session.set('sortPopular', true);
+			var $button = $(e.currentTarget);
+			$button.addClass('btn-primary');
+			$button.next().removeClass('btn-primary');
+	},
+
+	'click .random': function(e) {
+			Session.set('sortPopular', false);
+			var $button = $(e.currentTarget);
+			$button.addClass('btn-primary');
+			$button.prev().removeClass('btn-primary');
+	},
+
 	'click #reset' : function(e){
 		if(Meteor.user().isAdmin){
 			var voteSetting = Settings.findOne({name : 'votesPerUser'}),
