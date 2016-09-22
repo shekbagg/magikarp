@@ -73,13 +73,17 @@ Template.vote.helpers({
 	},
 
 	isAdmin: function(){
-		return Session.get('admins').includes(Meteor.user().services.google.email);
+		if(Session.get("admins")){
+			return Session.get('admins').includes(Meteor.user().services.google.email);
+		}
 	},
 
 	canDelete: function(){
-		const superpowers = Session.get('admins');
-		superpowers.push(this.nominator.services && this.nominator.services.google.email || this.nominator);
-		return superpowers.includes(Meteor.user().services.google.email);
+		let superpowers = Session.get('admins');
+		if (superpowers && Meteor.user()) {
+			superpowers.push(this.nominator.services && this.nominator.services.google.email || this.nominator);
+			return superpowers.includes(Meteor.user().services.google.email);
+		}
 	},
 
 	canVoteUp : function(){
@@ -105,7 +109,7 @@ Template.vote.helpers({
 				nomineeVotes = NomineeVotes.findOne({nominee : this._id, user : user._id}),
 				allowDownVotesSetting = Settings.findOne({name : 'allowDownVotes'});
 
-			if(nomineeVotes.votes < 1 && !allowDownVotesSetting.value){
+			if(nomineeVotes && nomineeVotes.votes < 1 && !allowDownVotesSetting.value){
 				return false;
 			}
 
