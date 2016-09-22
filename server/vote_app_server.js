@@ -13,7 +13,6 @@
 	Meteor.methods({
 		onLogin: function() {
 			var user = Meteor.user();
-
 			if(!user){
 				return null;
 			}
@@ -130,4 +129,3 @@
 			profileLink: 1
 		}});
 	});
-

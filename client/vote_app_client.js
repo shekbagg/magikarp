@@ -13,17 +13,9 @@ Deps.autorun(function() {
 		Meteor.call('getAdmins', function(err, admins) {
 			Session.set("admins", admins);
 		});
-		console.log('Hello!');
 
-
-		// if (Meteor.user()) {
-		// 	if(/@tradegecko.com\s*$/.test(Meteor.user().services.google.email)) {
-		// 			console.log('Welcome gecko!');
-		// 	} else {
-		// 		console.log('GTFO');
-		// 		Meteor.logout();
-		// 	}
-		// }
+		console.log(Session.get("meteor_loggedin"));
+		console.log(user);
 	} else {
 		console.log('Bye!');
 		$('#results, #changevotes').addClass('hide');
