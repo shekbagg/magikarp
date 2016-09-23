@@ -1,6 +1,6 @@
 	@import url(https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 	@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-	@import url(https://fonts.googleapis.com/css?family=Raleway);
+	@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
 
 	body { background: #fff; font-family: 'Open Sans', sans-serif; font-size: 14px; }
 	*, *:before, *:after {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
@@ -187,4 +187,97 @@
 	width: 220px;
 	height: 220px;
 	margin: 10% auto 0 auto;
+}
+
+/* Bootstrap Overrides */
+
+/* Navigation Bar */
+
+.navbar-default {
+	background-color: #285e7f;
+	border: 0;
+}
+
+.navbar-default .navbar-brand {
+	font-family: 'Raleway', serif; text-align: center;
+	font-weight: 800;
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #70cf32;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+	color: #8fe246;
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	background-color: #193f59;
+	color: #5ab9e1;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #f4f4f5;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+	color: #ffffff;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+   color: #5ab9e1;
+   background-color: #193f59;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+   color: #ffffff;
+   background-color: #193f59;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+   background-color: #ffffff;
+}
+
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+	border: 0;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+   background-color: #193f59;
+}
+
+.navbar-nav > li {
+	font-family: 'Raleway', serif; text-align: center;
+	font-weight: 500;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #70cf32;
+  border: 0;
+
+	font-family: 'Raleway', serif; text-align: center;
+	font-weight: 500;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary .focus {
+	background-color: #2fb628;
+	border: 0;
+	outline: 0;
 }
