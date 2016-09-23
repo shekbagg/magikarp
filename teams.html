@@ -1,11 +1,13 @@
 <template name="teams">
-  <div class="container">
+  <div class="container teams-section">
     {{#if session "meteor_loggedin"}}
       <div class="add-form">
         <form id="form" class="form-inline">
           {{ #if myTeam }}
-            <h2 class="my-team"><span style="color: #dddddd">You are a member of </span>{{myTeam.name}}</h2>
+            <h2 class="my-team">You are a member of <br /><span class="team-name-headline">{{myTeam.name}}</span></h2>
+            <div class="team-image"></div>
           {{ else }}
+            <div class="team-image"></div>
             <h1>Geckothon Teams</h1>
             <input placeholder="Enter a team name..." type="text" name="team_name" class="form-control input-lg idea-input" />
             <button class="btn btn-lg btn-default btn-submit" type="submit">Submit</button>
@@ -14,8 +16,8 @@
       </div>
     {{ /if }}
     {{#if session "meteor_loggedin"}}
-      <div id="ballot">
-        <h3>All teams</h3>
+      <div id="ballot" class="teams-listing">
+        <h2>All teams</h2>
         <ul class="nominees teams">
         {{ #each teams }}
           <li class="team">
