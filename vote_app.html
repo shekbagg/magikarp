@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		{{> navbar}}
-		{{ #if (session 'page_teams')}}
+		{{ #if session 'page_teams'}}
 			{{> teams}}
 		{{ else }}
 			{{> vote}}

@@ -207,7 +207,7 @@ var VoteApp = {
 		Nominees.update({ _id: nominee._id }, { $set : { description: description } });
 	},
 
-	 voteUpNominee : function(nominee){
+	voteUpNominee : function(nominee){
 		Nominees.update({_id : nominee._id},{$set : {votes: (nominee.votes + 1)}});
 	},
 
