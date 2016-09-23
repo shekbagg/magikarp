@@ -76,6 +76,11 @@
 			Nominees.update({ _id: nominee._id }, { $set : { nominator: newNominator || nominatorEmail } });
 			return !!newNominator;
 		},
+		changeOwner: function(team, ownerEmail) {
+			const newOnwer = Meteor.users.findOne({ 'services.google.email': ownerEmail });
+			Teams.update({ _id: team._id }, { $set : { owner: newOnwer || ownerEmail } });
+			return !!newOnwer;
+		},
 
 		discardBallot : function(userId){
 			if(Meteor.user().isAdmin){

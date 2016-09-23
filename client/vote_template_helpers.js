@@ -2,12 +2,6 @@
 // Vote Template Helpers
 
 Template.vote.helpers({
-	isAdmin : function(){
-		if(Meteor.user()){
-			return Meteor.user().isAdmin;
-		}
-	},
-
 	activeUsers : function(){
 		if( Meteor.user() ){
 			var returnArr = [];
