@@ -55,16 +55,8 @@
             <div class="info">
               {{#if session "meteor_loggedin"}}
                 <div class="actions">
-                  {{ #if canLeaveTeam }}
-                    <button class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
-                  {{ else }}
-                    <button disabled class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
-                  {{ /if }}
-                  {{ #if canJoinTeam }}
-                    <button class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
-                  {{ else }}
-                    <button disabled class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
-                  {{ /if }}
+                  <button class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
+                  <button class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
                   {{ #if isOwner }}
                     <button class="down delete" type="button"><i class="fa fa-trash-o"></i></button>
                   {{ /if }}

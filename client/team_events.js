@@ -75,6 +75,25 @@ Template.teams.events({
     return false;
   },
 
+  'click .vote-button' : function(e){
+    e.preventDefault();
+    if(Meteor.user()){
+      var $btn = $(e.target),
+        user = Meteor.user();
+
+      if(e.target.tagName.toLowerCase !== 'button'){
+        $btn = $btn.closest('button');
+      }
+
+      if($btn.hasClass('down')){
+        TeamApp.leaveTeam(this, user);
+      } else {
+        TeamApp.joinTeam(this, user);
+      }
+    }
+    return false;
+  },
+
 });
 
 //
@@ -99,6 +118,26 @@ var TeamApp = {
       alert('You have already created a team: ' + ownerTeamExists.name);
     } else {
       Teams.insert({name: name, owner: user});
+    }
+  },
+
+  joinTeam: function(team, user) {
+    var team = Teams.findOne({ _id: team._id });
+    if (team.members && team.members.length > 5) {
+      alert ('Team has reached max users!');
+    } else if (team.owner._id === user._id) {
+      alert ('You cannot join your own team!');
+    } else {
+      Teams.update({ _id: team._id, }, { $push: { members: user } });
+    }
+  },
+
+  leaveTeam: function(team, user) {
+    var team = Teams.findOne({ _id: team._id });
+    if (team.owner._id === user._id) {
+      alert('You cannot leave your own team!');
+    } else {
+      Teams.update({ _id: team._id, }, { $pull: { members: user } });
     }
   },
 
