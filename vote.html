@@ -1,0 +1,126 @@
+  <template name="vote">
+    <div class="container">
+
+      <h1>Welcome Hackers!</h1>
+
+      {{#if session "meteor_loggedin"}}
+        <div class="add-form">
+        <form id="form" class="form-inline">
+          {{ #if canVote }}
+            <input placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
+            <button class="btn btn-lg btn-default" type="submit">Submit</button>
+          {{ else }}
+            <input disabled placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
+            <button class="btn btn-lg btn-default" disabled type="submit">Submit</button>
+          {{ /if }}
+        </form>
+        </div>
+
+        <h2 class="votesremaing">Votes remaining: <strong>{{ userVotes }}</strong></h2>
+      {{ /if }}
+
+      {{#if session "meteor_loggedin"}}
+
+      <div class="btn-group sort-buttons" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-lg btn-default btn-primary popular">Popular</button>
+        <button type="button" class="btn btn-lg btn-default random">Random</button>
+      </div>
+
+      <div id="ballot">
+      <h2>Idea board</h2>
+
+      <ul class="nominees">
+      {{ #each nominees }}
+        <li class="nominee">
+          <p class="idea-name">
+            <h4><strong>{{ this.name }}</strong>{{ #if canDelete }} <a class="btn btn-info btn-xs left-margin"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> {{ /if }}</h4>
+            <p><input type="text" class="name hide form-control" placeholder="Enter a name..."></p>
+            <span>by </span>
+            <span class="nominator-info">
+              {{ nominatorInfo }}
+              {{ #if isAdmin }}
+                <a class="btn btn-info btn-xs left-margin"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+              {{ /if }}
+            </span>
+            <input type="text" class="nominator-input hide form-control">
+          </p>
+          <p class="idea-description">
+            <p>
+              {{ #if hasDescription }}
+                {{ this.description }}
+              {{ else }}
+                {{ #if canDelete }}
+                  <em>Add a description...</em>
+                {{ /if }}
+              {{ /if }}
+              {{ #if canDelete }}
+                &nbsp;<a class="btn btn-info btn-xs left-margin"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+              {{ /if }}
+            </p>
+            <textarea class="description hide form-control" placeholder="Enter a description..." rows=2 cols=50></textarea>
+          </p>
+          <p>Votes: {{ this.votes }}</p>
+          <div class="info">
+
+          {{#if session "meteor_loggedin"}}
+            <div class="actions">
+              {{ #if canVoteDown }}
+                <button class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
+              {{ else }}
+                <button disabled class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
+              {{ /if }}
+
+              {{ #if canVoteUp }}
+                <button class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
+              {{ else }}
+                <button disabled class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
+              {{ /if }}
+
+              {{ #if canDelete }}
+                <button class="down delete" type="button"><i class="fa fa-trash-o"></i></button>
+              {{ /if }}
+            </div>
+          {{ /if }}
+          </div>
+          {{#if session "meteor_loggedin"}}
+          <div class="uservotes">
+            {{ userVotesForNominee }}
+          </div>
+          {{ /if }}
+        </li>
+      {{ else }}
+        <div class="alert alert-warning" role="alert"><strong>No ideas</strong> added yet. Add a new idea to the list to get started.</div>
+      {{ /each }}
+      </ul>
+
+      </div>
+      {{else}}
+      <div class="alert alert-info" role="alert"><strong>Please login</strong> with your TradeGecko Google account to proceed.</div>
+      {{ /if }}
+
+      {{#if session "meteor_loggedin"}}
+
+        {{#unless userVotes }}
+
+          <p class="center"><button id="viewresults">View Results</button></p>
+
+          <div id="results" class="hide">
+            <h2>Results</h2>
+            <ul class="nominees results">
+            {{ #each results }}
+              <li class="nominee">
+                <strong class="title">{{ this.name }}</strong>
+                <div class="info">
+                  <strong class="votes">{{ this.votes }}</strong>
+                </div>
+              </li>
+            {{ /each }}
+            </ul>
+
+            <p class="center"><button id="changevotes" type="button">Change Votes</button></p>
+          </div>
+        {{ /unless }}
+
+      {{ /if }}
+    </div>
+  </template>
