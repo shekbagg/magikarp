@@ -6,7 +6,7 @@
 	*, *:before, *:after {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
 	h1, h2, button { font-family: 'Raleway', serif; text-align: center; }
-	h1 { margin-bottom: 2em; }
+	h1 { margin-bottom: 1em; }
 	h2 { text-align: left; }
 	.my-team { margin-bottom: 2em; }
 
@@ -179,4 +179,12 @@
 		width: 100% !important;
 		margin-bottom: 10px;
 	}
+}
+
+.banner-image {
+	display: block;
+	background: url("images/moko_monster.svg") no-repeat center center;
+	width: 250px;
+	height: 250px;
+	margin: 15% auto 0 auto;
 }
