@@ -263,15 +263,29 @@
 	text-transform: uppercase;
 }
 
-.btn-primary {
-  color: #ffffff;
-  background-color: #70cf32;
-  border: 0;
-
+.btn {
 	font-family: 'Raleway', serif; text-align: center;
 	font-weight: 500;
 	font-size: 12px;
 	text-transform: uppercase;
+}
+
+.btn-default {
+	color: #2d3033;
+	background-color: #ffffff;
+	border-color: #70cf32;
+}
+
+.btn-default:hover {
+	color: #2d3033;
+	background-color: #f4f4f5;
+	border-color: #70cf32;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #70cf32;
+  border: 0;
 }
 
 .btn-primary:hover,
@@ -280,4 +294,8 @@
 	background-color: #2fb628;
 	border: 0;
 	outline: 0;
+}
+
+.btn-lg, .btn-group-lg > .btn {
+	padding: 14px;
 }
