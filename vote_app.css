@@ -299,3 +299,10 @@
 .btn-lg, .btn-group-lg > .btn {
 	padding: 14px;
 }
+
+.btn-Google:hover,
+.btn-Google:focus,
+.btn-Google.focus {
+	color: #ffffff;
+	background-color: #bf3b2a;
+}
