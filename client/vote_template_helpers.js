@@ -14,12 +14,12 @@ Template.vote.helpers({
 	},
 
 	nominees : function(){
-		if (Session.get('sortPopular')) {
-			return Nominees.find({}, {sort : [['votes', 'desc']]});
-		} else {
+		if (Session.get('sortRandom')) {
 			return Nominees.find({}).fetch().sort(function() {
 			  return .5 - Math.random();
 			});
+		} else {
+			return Nominees.find({}, {sort : [['votes', 'desc']]});
 		}
 	},
 

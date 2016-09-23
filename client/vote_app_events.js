@@ -17,14 +17,14 @@ Template.vote.events({
 	},
 
 	'click .popular': function(e) {
-			Session.set('sortPopular', true);
+			Session.set('sortRandom', false);
 			var $button = $(e.currentTarget);
 			$button.addClass('btn-primary');
 			$button.next().removeClass('btn-primary');
 	},
 
 	'click .random': function(e) {
-			Session.set('sortPopular', false);
+			Session.set('sortRandom', true);
 			var $button = $(e.currentTarget);
 			$button.addClass('btn-primary');
 			$button.prev().removeClass('btn-primary');
