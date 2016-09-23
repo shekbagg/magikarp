@@ -268,6 +268,8 @@
 	font-weight: 500;
 	font-size: 12px;
 	text-transform: uppercase;
+
+	border-radius: 3px;
 }
 
 .btn-default {
@@ -297,7 +299,7 @@
 }
 
 .btn-lg, .btn-group-lg > .btn {
-	padding: 14px;
+	padding: 12px;
 }
 
 .btn-Google:hover,
@@ -305,6 +307,7 @@
 .btn-Google.focus {
 	color: #ffffff;
 	background-color: #bf3b2a;
+	outline: 0;
 }
 
 /* Font Styles */
@@ -313,3 +316,25 @@ h1,
 h2 {
 	font-weight: 300;
 }
+
+/* Other buttons */
+
+.btn-submit {
+	background-color: #70cf32;
+	font-size: 16px;
+	font-weight: 500;
+	color: #ffffff;
+	padding: 12px 30px;
+
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	text-transform: capitalize;
+}
+
+.btn-submit:hover,
+.btn-submit:focus,
+.btn-submit .focus {
+	background-color: #2fb628;
+	border: 1px solid transparent;
+	outline: 0;
+	color: #ffffff;
