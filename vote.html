@@ -16,15 +16,15 @@
           {{ /if }}
         </form>
       </div>
-      <h2 class="votesremaing">Votes remaining: <strong>{{ userVotes }}</strong></h2>
     {{ /if }}
 		{{#if session "meteor_loggedin"}}
-			<div class="btn-group sort-buttons" role="group" aria-label="Basic example">
-				<button type="button" class="btn btn-lg btn-default btn-primary popular">Popular</button>
-				<button type="button" class="btn btn-lg btn-default random">Random</button>
-			</div>
-			<div id="ballot">
-				<h2>Idea board</h2>
+			<div id="ballot" class="idea-board">
+				<h2 class="idea-board-heading">Idea board</h2>
+        <h2 class="votesremaing">Votes remaining: <strong>{{ userVotes }}</strong></h2>
+        <div class="btn-group sort-buttons" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-lg btn-default btn-primary popular">Popular</button>
+          <button type="button" class="btn btn-lg btn-default random">Random</button>
+        </div>
 				<ul class="nominees">
 				{{ #each nominees }}
 					<li class="nominee">

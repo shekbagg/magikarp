@@ -131,8 +131,18 @@
 
 
  	#login-buttons { padding: 1em 0; }
- 	.votesremaing { font-size: small; text-align: center; border-bottom: 0; }
- 	.votesremaing strong { font-size: larger; }
+ 	.votesremaing {
+ 		font-family: 'Open Sans', sans-serif;
+ 		font-size: 14px;
+ 		text-align: right;
+ 		border-bottom: 0; }
+ 	.votesremaing strong {
+ 		font-size: larger;
+ 		background-color: #6fd5d9;
+ 		border-radius: 30px;
+ 		color: #ffffff;
+ 		padding: 6px 10px;
+ 	}
 
  	.users { text-align: left; }
  	.users li { list-style: none; }
@@ -187,6 +197,18 @@
 	width: 220px;
 	height: 220px;
 	margin: 10% auto 0 auto;
+}
+
+.idea-board {
+	margin-top: 80px;
+	padding-top: 40px;
+	border-top: 1px dotted #c4ced1;
+}
+
+.idea-board-heading,
+.votesremaing {
+	display: inline-block;
+	width: 49%;
 }
 
 /* Bootstrap Overrides */
