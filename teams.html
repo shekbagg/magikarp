@@ -55,9 +55,9 @@
             <div class="info">
               {{#if session "meteor_loggedin"}}
                 <div class="actions">
-                  <button class="down vote-button" type="button"><i class="fa fa-arrow-down"></i></button>
-                  <button class="up vote-button" type="button"><i class="fa fa-arrow-up"></i></button>
-                  {{ #if isOwner }}
+                  <button class="down vote-button" type="button" data-tooltip="Leave"><i class="fa fa-ban"></i></button>
+                  <button class="up vote-button" type="button" data-tooltip="Join"><i class="fa fa-sign-in"></i></button>
+                  {{ #if isAdmin }}
                     <button class="down delete" type="button"><i class="fa fa-trash-o"></i></button>
                   {{ /if }}
                 </div>
