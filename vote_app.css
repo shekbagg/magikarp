@@ -8,6 +8,7 @@
 	h1, h2, button { font-family: 'Raleway', serif; text-align: center; }
 	h1 { margin-bottom: 2em; }
 	h2 { text-align: left; }
+	.my-team { margin-bottom: 2em; }
 
 	.sort-buttons { width: 100%; display: flex; justify-content: center; padding: 20px 0; }
 	.sort-buttons > .btn { outline: none; }

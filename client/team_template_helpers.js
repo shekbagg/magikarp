@@ -6,6 +6,12 @@ Template.teams.helpers({
     return Teams.find({});
   },
 
+  myTeam: function(){
+    var user = Meteor.user();
+    var myTeam = Teams.findOne({ members: user._id }) || Teams.findOne({ owner: user });
+    return myTeam;
+  },
+
   ownerInfo: function() {
     if (this.owner.profile && this.owner.services) {
       str = this.owner.profile.name + ' <img src="' + this.owner.services.google.picture + '" style="border-radius: 50%; width: 30px; height:30px;">';
