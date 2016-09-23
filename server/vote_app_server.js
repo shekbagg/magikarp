@@ -81,34 +81,6 @@
 			Teams.update({ _id: team._id }, { $set : { owner: newOnwer || ownerEmail } });
 			return !!newOnwer;
 		},
-
-		discardBallot : function(userId){
-			if(Meteor.user().isAdmin){
-				var nomineeVotes = NomineeVotes.find({user : userId}),
-					user = Users.find(userId);
-
-				nomineeVotes.forEach(function(nv, ix, arr){
-					var nominee = Nominees.findOne(nv.nominee);
-
-					if(nominee._id){
-
-						var newVoteTotal = nominee.votes + (-1 * nv.votes);
-
-						// Remove Votes
-						Nominees.update(nv.nominee ,{$set : {votes: newVoteTotal}});
-
-						// Remove NomineeVotes Obj
-						NomineeVotes.remove(nv._id);
-					}
-				});
-
-				// Reset User Votes
-				Users.update(
-					userId,
-					{ $set: {votes : Settings.findOne({name : 'votesPerUser'}).value }
-				});
-			}
-		}
 	});
 
 

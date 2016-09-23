@@ -29,4 +29,16 @@ Template.teams.helpers({
       return Session.get('admins').includes(Meteor.user().services.google.email);
     }
   },
+
+  teamMembers : function(){
+    var str = '';
+    console.log(this.members);
+    this.members.forEach(function(memberId) {
+      let user = Meteor.users.findOne({ _id: memberId });
+        str += '<span data-tooltip=' + user.profile.name + '>' +
+            '<img src="' + user.services.google.picture + '" style="border-radius: 50%; width: 30px; height:30px;">' +
+          '</span>';
+    });
+    return new Handlebars.SafeString(str);
+  },
 });
