@@ -111,11 +111,13 @@ var TeamApp = {
   createTeam: function(name, user) {
     var teamExists = Teams.findOne({name: name});
     var ownerTeamExists = Teams.findOne({owner: user});
-    // Check if user has joined a team
+    var teamThatTheUserJoinedAlready = Teams.findOne({ members: user._id });
     if (teamExists) {
       alert('This team name already exists!');
     } else if (ownerTeamExists) {
       alert('You have already created a team: ' + ownerTeamExists.name);
+    } else if (teamThatTheUserJoinedAlready) {
+      alert ("You are already part of Team " + teamThatTheUserJoinedAlready.name + ". Please leave that team first then create a new team!");
     } else {
       Teams.insert({name: name, owner: user});
     }
@@ -123,12 +125,15 @@ var TeamApp = {
 
   joinTeam: function(team, user) {
     var team = Teams.findOne({ _id: team._id });
+    var teamThatTheUserJoinedAlready = Teams.findOne({ members: user._id }) || Teams.findOne({ 'owner._id': user._id });
     if (team.members && team.members.length > 5) {
       alert ('Team has reached max users!');
     } else if (team.owner._id === user._id) {
       alert ('You cannot join your own team!');
+    } else if (teamThatTheUserJoinedAlready) {
+      alert ("You are already part of Team " + teamThatTheUserJoinedAlready.name + ". Please leave that team first then re-join");
     } else {
-      Teams.update({ _id: team._id, }, { $push: { members: user } });
+      Teams.update({ _id: team._id, }, { $push: { members: user._id } });
     }
   },
 
@@ -137,7 +142,7 @@ var TeamApp = {
     if (team.owner._id === user._id) {
       alert('You cannot leave your own team!');
     } else {
-      Teams.update({ _id: team._id, }, { $pull: { members: user } });
+      Teams.update({ _id: team._id, }, { $pull: { members: user._id } });
     }
   },
 
