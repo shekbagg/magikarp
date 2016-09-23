@@ -6,11 +6,19 @@
       <div class="add-form">
         <form id="form" class="form-inline">
           {{ #if canVote }}
-	          <input placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
-	          <button class="btn btn-lg btn-default btn-submit" type="submit">Submit</button>
+            <div class="input-group">
+              <input placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
+              <span class="input-group-btn">
+                <button class="btn btn-lg btn-default btn-submit" type="submit">Submit</button>
+              </span>
+            </div>
           {{ else }}
-	          <input disabled placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
-	          <button class="btn btn-lg btn-default btn-submit" disabled type="submit">Submit</button>
+            <div class="input-group">
+              <input disabled placeholder="Add your idea..." type="text" name="nomination" class="form-control input-lg idea-input" />
+              <span class="input-group-btn">
+                <button class="btn btn-lg btn-default btn-submit" disabled type="submit">Submit</button>
+              </span>
+            </div>
           {{ /if }}
         </form>
       </div>

@@ -156,8 +156,10 @@
 		text-align: center;
 	}
 
-	.idea-input {
-		width: 500px !important;
+	@media screen and (min-width: 768px) {
+		.idea-input {
+			min-width: 500px;
+		}
 	}
 
 	.name {
@@ -370,7 +372,7 @@ h2 {
 	font-size: 16px;
 	font-weight: 500;
 	color: #ffffff;
-	padding: 12px 30px;
+	padding: 12px 30px 11px 30px;
 
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
