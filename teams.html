@@ -59,7 +59,7 @@
               <textarea class="description hide form-control" placeholder="Enter a description..." rows=2 cols=50></textarea>
             </p>
             <div class="info">
-              {{#if session "meteor_loggedin"}}
+              {{#if showActions this myTeam}}
                 <div class="actions">
                   <button class="down vote-button" type="button" data-tooltip="Leave"><i class="fa fa-ban"></i></button>
                   <button class="up vote-button" type="button" data-tooltip="Join"><i class="fa fa-sign-in"></i></button>

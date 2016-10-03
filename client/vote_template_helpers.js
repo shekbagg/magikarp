@@ -172,6 +172,14 @@ Handlebars.registerHelper('session',function(input){
 	return Session.get(input);
 });
 
+Handlebars.registerHelper('showActions', function(team, myTeam){
+	if (myTeam) {
+		return team._id === myTeam._id;
+	} else {
+		return true;
+	}
+});
+
 Handlebars.registerHelper('votesCast',function(votesRemaining){
 
 	var votesPerUser = Settings.findOne({name : 'votesPerUser'});
