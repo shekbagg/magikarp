@@ -100,6 +100,10 @@ Template.teams.events({
 // Event Helper methods functions
 var TeamApp = {
 
+  changeOwner: function(owner, ownerEmail) {
+    Meteor.call('changeOwner', owner, ownerEmail);
+  },
+
   addName: function(team, name) {
     Teams.update({ _id: team._id }, { $set : { name: name } });
   },
