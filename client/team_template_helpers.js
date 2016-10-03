@@ -8,7 +8,7 @@ Template.teams.helpers({
 
   myTeam: function(){
     var user = Meteor.user();
-    var myTeam = Teams.findOne({ members: user._id }) || Teams.findOne({ owner: user });
+    var myTeam = Teams.findOne({ members: user._id }) || Teams.findOne({ 'owner._id': user._id });
     return myTeam;
   },
 
