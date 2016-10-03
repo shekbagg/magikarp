@@ -14,7 +14,7 @@
 
 	.input-lg, .btn-lg { margin-top: 10px; }
 	.input-lg { margin-left: auto; margin-right: auto; }
-	.idea-description { padding-right: 150px; }
+	.idea-description, .team-description { padding-right: 150px; }
 
 	/**
 	 * Tooltip Styles
