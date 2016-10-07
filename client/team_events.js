@@ -67,6 +67,25 @@ Template.teams.events({
     }
   },
 
+  'click .team-submission .edit': function(e) {
+    const $input = $(e.currentTarget).closest('.team-submission').find('.submission');
+    $input.parent().prev('p').addClass('hide');
+    $input.removeClass('hide');
+  },
+
+  'keyup .submission': function(e) {
+    const $input = $(e.currentTarget);
+    if (e.keyCode === 13) {
+      let val = $input.val();
+      if (!val.includes('http://') && !val.includes('https://')) {
+        val = 'http://' + val;
+      }
+      TeamApp.addSubmission(this, val);
+      $input.addClass('hide');
+      $input.parent().prev('p').removeClass('hide');
+    }
+  },
+
   'click .delete': function(e) {
     var user = Meteor.user();
     if (user) {
@@ -110,6 +129,10 @@ var TeamApp = {
 
   addDescription: function(team, description) {
     Teams.update({ _id: team._id }, { $set : { description: description } });
+  },
+
+  addSubmission: function(team, submission) {
+    Teams.update({ _id: team._id }, { $set : { submission: submission } });
   },
 
   createTeam: function(name, user) {
