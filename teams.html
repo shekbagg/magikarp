@@ -62,6 +62,7 @@
               <p>
                 {{ #if this.submission }}
                   Submission: <a href="{{ this.submission }}" target="_blank">{{this.submission}}</a>
+                  <span style="font-size: 12px">{{this.submitted_at}}</span>
                   {{ #if showActions this myTeam }}
                     <a class="btn btn-info btn-xs left-margin"><span class="edit glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                   {{ /if }}

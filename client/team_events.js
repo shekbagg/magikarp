@@ -132,7 +132,8 @@ var TeamApp = {
   },
 
   addSubmission: function(team, submission) {
-    Teams.update({ _id: team._id }, { $set : { submission: submission } });
+    var submitted_at = new Date().toLocaleTimeString();
+    Teams.update({ _id: team._id }, { $set : { submission: submission, submitted_at: submitted_at } });
   },
 
   createTeam: function(name, user) {
